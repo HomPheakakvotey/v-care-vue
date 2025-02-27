@@ -139,7 +139,7 @@ watch(() => route.params.id, (newId) => {
     <div class="mt-6">
       <button
         @click="addToCart(product)"
-        class="w-full bg-pink-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition-all"
+        class="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-lg transition-all"
       >
         Add to Cart
       </button>

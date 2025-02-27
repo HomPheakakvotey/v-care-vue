@@ -52,14 +52,14 @@ const legalLinks = [
 
 
 <template>
-    <footer class="py-12 bg-card">
+    <footer class="px-14 py-8 bg-card">
       <div class="container mx-auto px-4">
         <!-- Top section with logo, email signup, and social -->
         <div class="mb-12 grid gap-8 lg:grid-cols-2">
           <!-- Logo and signup section -->
           <div class="space-y-6">
             <div class="flex items-center space-x-2">
-              <img src="../assets/logo.svg" alt="Logo" class="h-8 w-8" />
+              <img src="../assets/logo.png" alt="Logo" class="h-20" />
             </div>
             <div class="max-w-md">
               <p class="mb-4 text-xl text-gray-600 dark:text-gray-400">

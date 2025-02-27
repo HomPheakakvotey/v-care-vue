@@ -50,7 +50,7 @@ const toggleColorMode = () => {
   <header class="sticky top-0 z-10 bg-card py-2">
     <NavigationMenu class="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <RouterLink to="/" class="flex items-center gap-2">
-        <img src="../src/assets/logo.svg" class="h-8 w-8 transition-all" alt="V Care Logo" />
+        <img src="../src/assets/logo.png" class="h-8 w-8 transition-all" alt="V Care Logo" />
         <span class="font-semibold text-lg">V Care</span>
       </RouterLink>
 
