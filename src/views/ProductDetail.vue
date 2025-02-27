@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { Skeleton } from '@/components/ui/skeleton'
-import { cartItems, addToCart as sharedAddToCart } from '@/store/cartState' // import shared cart state and functions
-import { Button } from '@/components/ui/button'
+import { cartItems, addToCart as sharedAddToCart } from '@/store/cartState' 
 import ProductList from '@/components/ProductList.vue'
 
 type Product = {
   id: number
-  title: string
+  name: string
   price: number
   description: string
   category: string
@@ -24,7 +23,7 @@ const route = useRoute()
 const fetchProductDetail = async (productId: number) => {
   loading.value = true
   try {
-    const response = await axios.get(`https://dummyjson.com/products/${productId}`)
+    const response = await axios.get(`https://api-vcare.lyhou.engineer/api/products/${productId}`)
     product.value = response.data
   } catch (error) {
     console.error('Error fetching product detail:', error)
@@ -41,7 +40,7 @@ const addToCart = (product: Product | null) => {
   if (!existingItem) {
     sharedAddToCart({
       id: product.id,
-      title: product.title,
+      title: product.name,
       price: product.price,
       thumbnail: product.thumbnail,
       quantity: 1
@@ -51,8 +50,17 @@ const addToCart = (product: Product | null) => {
   }
 }
 
+// Fetch the product when the component is mounted
 onMounted(() => {
   const productId = Number(route.params.id)
+  if (productId) {
+    fetchProductDetail(productId)
+  }
+})
+
+// Watch for changes in the route's id and refetch the product details
+watch(() => route.params.id, (newId) => {
+  const productId = Number(newId)
   if (productId) {
     fetchProductDetail(productId)
   }
@@ -64,7 +72,7 @@ onMounted(() => {
     <div
       class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8"
     >
-      <!-- Skeleton for Product Title -->
+      <!-- Skeleton for Product name -->
       <div class="lg:max-w-lg lg:self-end mt-4">
         <Skeleton class="h-12 w-full bg-gray-200 dark:bg-gray-800 rounded-lg" />
       </div>
@@ -98,7 +106,7 @@ onMounted(() => {
     <div class="w-full max-w-sm overflow-hidden rounded-lg">
       <img
         :src="product.thumbnail"
-        :alt="product.title"
+        :alt="product.name"
         class="h-80 w-full object-cover rounded-lg shadow-md"
       />
     </div>
@@ -108,7 +116,7 @@ onMounted(() => {
   <div v-if="product" class="space-y-6">
 
     <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
-      {{ product.title }}
+      {{ product.name }}
     </h1>
 
       <div class="flex items-center">
@@ -126,7 +134,6 @@ onMounted(() => {
       <div class="flex items-center">
         <p class="text-gray-700 dark:text-gray-400 text-lg"> Category: {{ product.category }}</p>
       </div>
-
 
     <!-- Add to Cart Button -->
     <div class="mt-6">

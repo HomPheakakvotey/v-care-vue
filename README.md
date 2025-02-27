@@ -1,28 +1,26 @@
 # V-Care
 
-This template should help get you started developing with Vue 3 in Vite.
+Welcome to **V-Care**, your one-stop online store for **skincare** and **makeup** products!💄
 
-## Recommended IDE Setup
+Explore a world of beauty products with easy navigation and features like product details, shopping cart, and more. Get ready to add some glam to your daily routine! ✨
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Features
+- 🛍️ **Product List**: Browse through a stunning collection of skincare and makeup products.
+- 📦 **Product Detail**: Get detailed information about each product.
+- 🛒 **Shopping Cart**: Add your favorite products to the cart and checkout when ready.
+- 🏠 **About**: Learn more about V-Care, our story, and our mission.
+- 📜 **Policy**: Find our terms and conditions, return policy, and more.
 
-## Type Support for `.vue` Imports in TS
+## 🚀 Project Setup
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### Prerequisites
+Before getting started, make sure you have the following tools installed:
 
-## Customize configuration
+- **Node.js** (LTS version recommended) 🟩
+- **Docker** (for containerizing the app) 🐳
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### 1️⃣ Install Dependencies
+To install all the necessary dependencies, run the following command:
 
-## Project Setup
-
-```sh
+```bash
 npm install
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm build
-```
-

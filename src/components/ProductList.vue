@@ -8,44 +8,43 @@ import { addToCart as sharedAddToCart } from '@/store/cartState'
 
 type Product = {
   id: number
-  title: string
+  name: string
   price: number
   description: string
   category: string
   thumbnail: string
 }
 
-type ApiResponse = {
-  products: Product[]
-  total: number
-  skip: number
-  limit: number
-}
 
 const products = ref<Product[]>([])
 const cart = ref<Product[]>([]) // Cart state
 const loading = ref(false)
 const isInCart = ref(false)
 const fetchProducts = async () => {
-  loading.value = true
-  const limit = 20
-  const skip = 0
+  loading.value = true;
+  const limit = 20;
+  const skip = 0;
   try {
-    const response = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
-    const data: ApiResponse = await response.json()
-    products.value = data.products
+    const response = await fetch(`https://api-vcare.lyhou.engineer/api/products?limit=${limit}&skip=${skip}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data: Product[] = await response.json(); 
+    console.log("Fetched Data:", data); 
+    products.value = data; 
   } catch (error) {
-    console.error('Error fetching products:', error)
+    console.error("Error fetching products:", error);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
+
 
 const addToCart = (product: Product) => {
   // Check if product is already in cart
   sharedAddToCart({
     id: product.id,
-    title: product.title,
+    title: product.name,
     price: product.price,
     thumbnail: product.thumbnail,
     quantity: 1
@@ -92,7 +91,7 @@ onMounted(() => {
         <div class="aspect-square overflow-hidden rounded-2xl">
           <img
             :src="product.thumbnail"
-            :alt="product.title"
+            :alt="product.name"
             class="h-56 w-full object-cover object-center transition-transform duration-300 hover:scale-110"
           />
         </div>
@@ -100,7 +99,7 @@ onMounted(() => {
         <!-- Product Info -->
         <div class="space-y-2">
           <h3 class="text-xl h-14 line-clamp-2 font-semibold">
-            {{ product.title }}
+            {{ product.name }}
           </h3>
           <p class="text-[15px] font-medium text-gray-500 dark:text-gray-400 line-clamp-2">
             {{ product.description }}
@@ -141,7 +140,7 @@ onMounted(() => {
             class="bg-yellow-500 hover:bg-yellow-600 text-gray-50 hover:text-gray-100 rounded-full px-4 flex items-center gap-2"
           >
             <Icon icon="lucide:shopping-bag" class="w-4 h-4" />
-            Product Detail<span class="sr-only">, {{ product.title }}</span>
+            Product Detail<span class="sr-only">, {{ product.name }}</span>
           </Button>
         </RouterLink>
         <Button
@@ -149,7 +148,7 @@ onMounted(() => {
           @click="addToCart(product)"
         >
           <Icon icon="ion:cart-outline" class="w-6 h-6" />
-          Add to cart<span class="sr-only">, {{ product.title }}</span>
+          Add to cart<span class="sr-only">, {{ product.name }}</span>
         </Button>
       </div> -->
     </div>
